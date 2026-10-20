@@ -1,0 +1,313 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.54287987,
+          43.46909688
+        ]
+      },
+      "properties": {
+        "buildingCode": "ML",
+        "buildingName": "Modern Languages"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.54242926,
+          43.46984437
+        ]
+      },
+      "properties": {
+        "buildingCode": "LIB",
+        "buildingName": "Dana Porter Arts Library"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.54021338,
+          43.4692188
+        ]
+      },
+      "properties": {
+        "buildingCode": "SCH",
+        "buildingName": "South Campus Hall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.54613339,
+          43.47242353
+        ]
+      },
+      "properties": {
+        "buildingCode": "PAC",
+        "buildingName": "Physical Activities Complex"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.545455,
+          43.471601
+        ]
+      },
+      "properties": {
+        "buildingCode": "SLC",
+        "buildingName": "Student Life Centre"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.5497,
+          43.47302
+        ]
+      },
+      "properties": {
+        "buildingCode": "V1",
+        "buildingName": "Student Village 1"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.54275113,
+          43.46579535
+        ]
+      },
+      "properties": {
+        "buildingCode": "MHR",
+        "buildingName": "Minota Hagey Residence"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.54165679,
+          43.46792891
+        ]
+      },
+      "properties": {
+        "buildingCode": "HH",
+        "buildingName": "J.G. Hagey Hall of the Humanities"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.5539,
+          43.47039
+        ]
+      },
+      "properties": {
+        "buildingCode": "REV",
+        "buildingName": "Ron Eydt Village"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.53432,
+          43.47001
+        ]
+      },
+      "properties": {
+        "buildingCode": "UWP",
+        "buildingName": "University of Waterloo Place"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.547378,
+          43.472334
+        ]
+      },
+      "properties": {
+        "buildingCode": "UC",
+        "buildingName": "University Club"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.53933936,
+          43.47095002
+        ]
+      },
+      "properties": {
+        "buildingCode": "CPH",
+        "buildingName": "Carl A. Pollock Hall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.54363089,
+          43.46962635
+        ]
+      },
+      "properties": {
+        "buildingCode": "NH",
+        "buildingName": "Ira G. Needles Hall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.54517584,
+          43.47386586
+        ]
+      },
+      "properties": {
+        "buildingCode": "BMH",
+        "buildingName": "B.C. Matthews Hall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.5455299,
+          43.47592517
+        ]
+      },
+      "properties": {
+        "buildingCode": "OPT",
+        "buildingName": "Optometry"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.54864126,
+          43.47324689
+        ]
+      },
+      "properties": {
+        "buildingCode": "FED",
+        "buildingName": "Federation Hall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.542164,
+          43.472761
+        ]
+      },
+      "properties": {
+        "buildingCode": "DC",
+        "buildingName": "William G. Davis Computer Research Centre"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.54206448,
+          43.47149504
+        ]
+      },
+      "properties": {
+        "buildingCode": "EIT",
+        "buildingName": "Centre for Environmental and Information Technology"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.54852324,
+          43.47535682
+        ]
+      },
+      "properties": {
+        "buildingCode": "CIF",
+        "buildingName": "Columbia Icefield"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.54338,
+          43.47064
+        ]
+      },
+      "properties": {
+        "buildingCode": "STC",
+        "buildingName": "Science Teaching Complex"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.543376,
+          43.468159
+        ]
+      },
+      "properties": {
+        "buildingCode": "EV3",
+        "buildingName": "Environment 3"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.54624,
+          43.47361
+        ]
+      },
+      "properties": {
+        "buildingCode": "EXP",
+        "buildingName": "Expansion"
+      }
+    }
+  ]
+}
