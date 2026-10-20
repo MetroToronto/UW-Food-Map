@@ -1,15 +1,72 @@
 
-// University of Waterloo main campus
+// University of Waterloo campus center
 const Campus_Centerpoint = [43.4723, -80.5449];
 
-// Initialize Leaflet map
-const map = L.map('map').setView(Campus_Centerpoint, 16);
+// Initialize the Leaflet map
+const map = L.map("map").setView(Campus_Centerpoint, 16);
 
-// Add OpenStreetMap basemap tiles
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+// Add the OpenStreetMap basemap
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-// Add a scale bar
+// Add a map scale
 L.control.scale().addTo(map);
+
+// Load food-service building locations from GeoJSON
+async function loadFoodServiceLocations() {
+    try {
+        const response = await fetch(
+            "data/FoodServices_Locations.geojson"
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                `Unable to load GeoJSON (HTTP ${response.status})`
+            );
+        }
+
+        const geojson = await response.json();
+
+        // Create a marker for each GeoJSON location
+        const locationsLayer = L.geoJSON(geojson, {
+            onEachFeature: (feature, layer) => {
+
+                const properties = feature.properties || {};
+
+                // Create popup with building information
+                const popup = document.createElement("div");
+
+                const name = document.createElement("strong");
+                name.textContent =
+                    properties.buildingName || "Unnamed building";
+
+                popup.appendChild(name);
+
+                if (properties.buildingCode) {
+                    const code = document.createElement("div");
+                    code.textContent =
+                        `Building code: ${properties.buildingCode}`;
+
+                    popup.appendChild(code);
+                }
+
+                layer.bindPopup(popup);
+            }
+        }).addTo(map);
+
+        console.log(
+            `Loaded ${locationsLayer.getLayers().length} location(s).`
+        );
+
+    } catch (error) {
+        console.error(
+            "Failed to load food-service locations:",
+            error
+        );
+    }
+}
+
+// Load the locations when the website opens
+loadFoodServiceLocations();
