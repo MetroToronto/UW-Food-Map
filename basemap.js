@@ -70,3 +70,65 @@ async function loadFoodServiceLocations() {
 
 // Load the locations when the website opens
 loadFoodServiceLocations();
+
+// Load Student Society food locations
+async function loadStudentSocietyLocations() {
+    try {
+        // 1. Fetch the GeoJSON file
+        const response = await fetch(
+            "data/StudentSocieties_Locations.geojson"
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                `Unable to load Student Societies GeoJSON (HTTP ${response.status})`
+            );
+        }
+
+        // 2. Convert response to JavaScript object
+        const geojson = await response.json();
+
+        // 3. Add locations to Leaflet
+        const studentSocietyLayer = L.geoJSON(geojson, {
+
+            onEachFeature: (feature, layer) => {
+                const properties = feature.properties || {};
+
+                // Create popup
+                const popup = document.createElement("div");
+
+                const name = document.createElement("strong");
+                name.textContent = properties.CnDName || "Unknown C&D";
+
+                const society = document.createElement("p");
+                society.textContent =
+                    `Student Society: ${properties.StudentSociety}`;
+
+                const building = document.createElement("p");
+                building.textContent =
+                    `Building: ${properties.BuildingName} (${properties.BuildingCode})`;
+
+                popup.appendChild(name);
+                popup.appendChild(society);
+                popup.appendChild(building);
+
+                // Attach popup to marker
+                layer.bindPopup(popup);
+            }
+
+        }).addTo(map);
+
+        console.log(
+            `Loaded ${studentSocietyLayer.getLayers().length} student society locations.`
+        );
+
+    } catch (error) {
+        console.error(
+            "Failed to load Student Society locations:",
+            error
+        );
+    }
+}
+
+// Run function when website loads
+loadStudentSocietyLocations();
