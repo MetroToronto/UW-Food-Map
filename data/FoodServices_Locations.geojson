@@ -188,20 +188,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -80.54517584,
-          43.47386586
-        ]
-      },
-      "properties": {
-        "buildingCode": "BMH",
-        "buildingName": "B.C. Matthews Hall"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -80.5455299,
           43.47592517
         ]
@@ -305,8 +291,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "EXP",
-        "buildingName": "Expansion"
+        "buildingCode": "HLTH",
+        "buildingName": "Health Expansion"
       }
     }
   ]
