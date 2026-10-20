@@ -11,8 +11,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "ML",
-        "buildingName": "Modern Languages"
+        "BuildingCode": "ML",
+        "BuildingName": "Modern Languages"
       }
     },
     {
@@ -25,8 +25,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "LIB",
-        "buildingName": "Dana Porter Arts Library"
+        "BuildingCode": "LIB",
+        "BuildingName": "Dana Porter Arts Library"
       }
     },
     {
@@ -39,8 +39,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "SCH",
-        "buildingName": "South Campus Hall"
+        "BuildingCode": "SCH",
+        "BuildingName": "South Campus Hall"
       }
     },
     {
@@ -53,8 +53,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "PAC",
-        "buildingName": "Physical Activities Complex"
+        "BuildingCode": "PAC",
+        "BuildingName": "Physical Activities Complex"
       }
     },
     {
@@ -67,8 +67,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "SLC",
-        "buildingName": "Student Life Centre"
+        "BuildingCode": "SLC",
+        "BuildingName": "Student Life Centre"
       }
     },
     {
@@ -81,8 +81,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "V1",
-        "buildingName": "Student Village 1"
+        "BuildingCode": "V1",
+        "BuildingName": "Student Village 1"
       }
     },
     {
@@ -95,8 +95,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "MHR",
-        "buildingName": "Minota Hagey Residence"
+        "BuildingCode": "MHR",
+        "BuildingName": "Minota Hagey Residence"
       }
     },
     {
@@ -109,8 +109,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "HH",
-        "buildingName": "J.G. Hagey Hall of the Humanities"
+        "BuildingCode": "HH",
+        "BuildingName": "J.G. Hagey Hall of the Humanities"
       }
     },
     {
@@ -123,8 +123,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "REV",
-        "buildingName": "Ron Eydt Village"
+        "BuildingCode": "REV",
+        "BuildingName": "Ron Eydt Village"
       }
     },
     {
@@ -137,8 +137,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "UWP",
-        "buildingName": "University of Waterloo Place"
+        "BuildingCode": "UWP",
+        "BuildingName": "University of Waterloo Place"
       }
     },
     {
@@ -151,8 +151,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "UC",
-        "buildingName": "University Club"
+        "BuildingCode": "UC",
+        "BuildingName": "University Club"
       }
     },
     {
@@ -165,8 +165,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "CPH",
-        "buildingName": "Carl A. Pollock Hall"
+        "BuildingCode": "CPH",
+        "BuildingName": "Carl A. Pollock Hall"
       }
     },
     {
@@ -179,8 +179,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "NH",
-        "buildingName": "Ira G. Needles Hall"
+        "BuildingCode": "NH",
+        "BuildingName": "Ira G. Needles Hall"
       }
     },
     {
@@ -193,8 +193,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "OPT",
-        "buildingName": "Optometry"
+        "BuildingCode": "OPT",
+        "BuildingName": "Optometry"
       }
     },
     {
@@ -207,8 +207,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "FED",
-        "buildingName": "Federation Hall"
+        "BuildingCode": "FED",
+        "BuildingName": "Federation Hall"
       }
     },
     {
@@ -221,8 +221,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "DC",
-        "buildingName": "William G. Davis Computer Research Centre"
+        "BuildingCode": "DC",
+        "BuildingName": "William G. Davis Computer Research Centre"
       }
     },
     {
@@ -235,8 +235,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "EIT",
-        "buildingName": "Centre for Environmental and Information Technology"
+        "BuildingCode": "EIT",
+        "BuildingName": "Centre for Environmental and Information Technology"
       }
     },
     {
@@ -249,8 +249,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "CIF",
-        "buildingName": "Columbia Icefield"
+        "BuildingCode": "CIF",
+        "BuildingName": "Columbia Icefield"
       }
     },
     {
@@ -263,8 +263,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "STC",
-        "buildingName": "Science Teaching Complex"
+        "BuildingCode": "STC",
+        "BuildingName": "Science Teaching Complex"
       }
     },
     {
@@ -277,8 +277,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "EV3",
-        "buildingName": "Environment 3"
+        "BuildingCode": "EV3",
+        "BuildingName": "Environment 3"
       }
     },
     {
@@ -291,8 +291,8 @@
         ]
       },
       "properties": {
-        "buildingCode": "HLTH",
-        "buildingName": "Health Expansion"
+        "BuildingCode": "HLTH",
+        "BuildingName": "Health Expansion"
       }
     }
   ]
