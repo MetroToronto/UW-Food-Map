@@ -40,14 +40,14 @@ async function loadFoodServiceLocations() {
 
                 const name = document.createElement("strong");
                 name.textContent =
-                    properties.buildingName || "Unnamed building";
+                    properties.BuildingName || "Unnamed building";
 
                 popup.appendChild(name);
 
-                if (properties.buildingCode) {
+                if (properties.BuildingCode) {
                     const code = document.createElement("div");
                     code.textContent =
-                        `Building code: ${properties.buildingCode}`;
+                        `Building code: ${properties.BuildingCode}`;
 
                     popup.appendChild(code);
                 }
