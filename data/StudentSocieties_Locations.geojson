@@ -1,0 +1,107 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.54356,
+          43.47189
+        ]
+      },
+      "properties": {
+        "CnDCode": "MathSoc",
+        "CnDName": "Right Angle Cafe",
+        "StudentSociety": "Math Society",
+        "BuildingCode": "MC",
+        "BuildingName": "Mathematics & Computer Building"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.54305,
+          43.47102
+        ]
+      },
+      "properties": {
+        "CnDCode": "SciSoc",
+        "CnDName": "Science CnD",
+        "StudentSociety": "Science Society",
+        "BuildingCode": "B1",
+        "BuildingName": "Biology 1"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.54183,
+          43.46887
+        ]
+      },
+      "properties": {
+        "CnDCode": "ASU",
+        "CnDName": "Tuck Shop",
+        "StudentSociety": "Arts Student Union",
+        "BuildingCode": "AL",
+        "BuildingName": "Arts Lecture Hall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.54295,
+          43.46827
+        ]
+      },
+      "properties": {
+        "CnDCode": "ESS",
+        "CnDName": "ES Coffee Shop",
+        "StudentSociety": "Environment Students Society",
+        "BuildingCode": "EV1",
+        "BuildingName": "Environment 1"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.53905,
+          43.47065
+        ]
+      },
+      "properties": {
+        "CnDCode": "EngSoc",
+        "CnDName": "Engineering C&D",
+        "StudentSociety": "Engineering Society",
+        "BuildingCode": "CPH",
+        "BuildingName": "Carl A. Pollock Hall"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -80.53956,
+          43.47265
+        ]
+      },
+      "properties": {
+        "CnDCode": "EngSoc",
+        "CnDName": "Engineering C&D",
+        "StudentSociety": "Engineering Society",
+        "BuildingCode": "E5",
+        "BuildingName": "Engineering 5"
+      }
+    }
+  ]
+}
