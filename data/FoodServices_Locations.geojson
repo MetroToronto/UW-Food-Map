@@ -90,20 +90,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -80.54275113,
-          43.46579535
-        ]
-      },
-      "properties": {
-        "BuildingCode": "MHR",
-        "BuildingName": "Minota Hagey Residence"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -80.54165679,
           43.46792891
         ]
@@ -140,20 +126,7 @@
         "BuildingCode": "UWP",
         "BuildingName": "University of Waterloo Place"
       }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -80.547378,
-          43.472334
-        ]
-      },
-      "properties": {
-        "BuildingCode": "UC",
-        "BuildingName": "University Club"
-      }
+   
     },
     {
       "type": "Feature",
@@ -195,20 +168,6 @@
       "properties": {
         "BuildingCode": "OPT",
         "BuildingName": "Optometry"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -80.54864126,
-          43.47324689
-        ]
-      },
-      "properties": {
-        "BuildingCode": "FED",
-        "BuildingName": "Federation Hall"
       }
     },
     {
