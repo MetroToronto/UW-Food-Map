@@ -133,20 +133,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -80.53933936,
-          43.47095002
-        ]
-      },
-      "properties": {
-        "BuildingCode": "CPH",
-        "BuildingName": "Carl A. Pollock Hall"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -80.54363089,
           43.46962635
         ]
