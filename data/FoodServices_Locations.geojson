@@ -161,20 +161,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -80.5455299,
-          43.47592517
-        ]
-      },
-      "properties": {
-        "BuildingCode": "OPT",
-        "BuildingName": "Optometry"
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           -80.542164,
           43.472761
         ]
