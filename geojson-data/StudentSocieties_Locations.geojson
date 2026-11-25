@@ -11,9 +11,9 @@
         ]
       },
       "properties": {
-        "CnDCode": "MathSoc",
+        "StudentSocietyCode": "MathSoc",
         "CnDName": "Right Angle Cafe",
-        "StudentSociety": "Math Society",
+        "StudentSocietyName": "Math Society",
         "BuildingCode": "MC",
         "BuildingName": "Mathematics & Computer Building"
       }
@@ -28,9 +28,9 @@
         ]
       },
       "properties": {
-        "CnDCode": "SciSoc",
+        "StudentSocietyCode": "SciSoc",
         "CnDName": "Science CnD",
-        "StudentSociety": "Science Society",
+        "StudentSocietyName": "Science Society",
         "BuildingCode": "B1",
         "BuildingName": "Biology 1"
       }
@@ -45,9 +45,9 @@
         ]
       },
       "properties": {
-        "CnDCode": "ASU",
+        "StudentSocietyCode": "ASU",
         "CnDName": "Tuck Shop",
-        "StudentSociety": "Arts Student Union",
+        "StudentSocietyName": "Arts Student Union",
         "BuildingCode": "AL",
         "BuildingName": "Arts Lecture Hall"
       }
@@ -62,9 +62,9 @@
         ]
       },
       "properties": {
-        "CnDCode": "ESS",
+        "StudentSocietyCode": "ESS",
         "CnDName": "ES Coffee Shop",
-        "StudentSociety": "Environment Students Society",
+        "StudentSocietyName": "Environment Students Society",
         "BuildingCode": "EV1",
         "BuildingName": "Environment 1"
       }
@@ -79,9 +79,9 @@
         ]
       },
       "properties": {
-        "CnDCode": "EngSoc",
+        "StudentSocietyCode": "EngSoc",
         "CnDName": "Engineering C&D",
-        "StudentSociety": "Engineering Society",
+        "StudentSocietyName": "Engineering Society",
         "BuildingCode": "CPH",
         "BuildingName": "Carl A. Pollock Hall"
       }
@@ -96,9 +96,9 @@
         ]
       },
       "properties": {
-        "CnDCode": "EngSoc",
+        "StudentSocietyCode": "EngSoc",
         "CnDName": "Engineering C&D",
-        "StudentSociety": "Engineering Society",
+        "StudentSocietyName": "Engineering Society",
         "BuildingCode": "E5",
         "BuildingName": "Engineering 5"
       }
