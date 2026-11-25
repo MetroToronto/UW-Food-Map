@@ -1,44 +1,76 @@
 // ------------------------------------------------------------
-// MAP STARTING POSITION, ZOOM, AND MOVEMENT RESTRICTIONS
+// MAP STARTING POSITION AND ZOOM
 // ------------------------------------------------------------
-// Slightly north and east of the original campus map centre.
-const Campus_Centerpoint = [43.4509, -80.5330];
+// Temporary setup: map dragging and panning are UNLOCKED.
+// When you choose your ideal centre coordinates, you can
+// restore the movement restrictions in a later version.
+const Campus_Centerpoint = [43.4729, -80.5439];
 const START_ZOOM = 16.5;
-
-// Limits how far users can pan when zoomed in.
-const CAMPUS_BOUNDS = L.latLngBounds(
-    [43.4570, -80.5659], // Southwest
-    [43.4890, -80.5219]  // Northeast
-);
 
 const map = L.map("map", {
     zoomSnap: 0.5,
     zoomDelta: 0.5,
-    minZoom: START_ZOOM,
+    minZoom: START_ZOOM, // Maximum zoom-out remains 16.5
     maxZoom: 19,
-    maxBounds: CAMPUS_BOUNDS,
-    maxBoundsViscosity: 1.0,
-    dragging: false,
-    keyboard: false
+    dragging: true,
+    keyboard: true
+    // No maxBounds: freely pan while finding your preferred centre.
 }).setView(Campus_Centerpoint, START_ZOOM);
 
 map.zoomControl.setPosition("topright");
 
-// At maximum zoom-out, keep the original view in place.
-// At closer zooms, allow movement within CAMPUS_BOUNDS.
-function updateMapMovement() {
-    if (map.getZoom() <= START_ZOOM) {
-        map.dragging.disable();
-        map.keyboard.disable();
-        map.panTo(Campus_Centerpoint, { animate: false });
-    } else {
-        map.dragging.enable();
-        map.keyboard.enable();
-    }
-}
+// ------------------------------------------------------------
+// LIVE MAP CENTRE COORDINATE DISPLAY
+// ------------------------------------------------------------
+// Shows the latitude and longitude at the CENTER of the map,
+// not at your mouse cursor or at a marker.
+const coordinatesControl = L.control({ position: "topright" });
 
-map.on("zoomend", updateMapMovement);
-updateMapMovement();
+coordinatesControl.onAdd = function () {
+    const panel = L.DomUtil.create("div", "map-coordinates-control");
+
+    // Inline styling: no edits to mapstyle.css are necessary.
+    Object.assign(panel.style, {
+        backgroundColor: "#ffffff",
+        border: "1px solid #cccccc",
+        borderRadius: "8px",
+        padding: "10px 12px",
+        boxShadow: "0 2px 9px rgba(0, 0, 0, 0.18)",
+        fontFamily: "Arial, sans-serif",
+        fontSize: "12px",
+        lineHeight: "1.65",
+        color: "#202020",
+        minWidth: "165px"
+    });
+
+    const title = document.createElement("div");
+    title.textContent = "Map centre coordinates";
+    title.style.fontWeight = "bold";
+    title.style.marginBottom = "3px";
+
+    const latitudeDisplay = document.createElement("div");
+    const longitudeDisplay = document.createElement("div");
+
+    panel.append(title, latitudeDisplay, longitudeDisplay);
+
+    function updateCoordinates() {
+        const centre = map.getCenter();
+        latitudeDisplay.textContent = `Latitude: ${centre.lat.toFixed(6)}`;
+        longitudeDisplay.textContent = `Longitude: ${centre.lng.toFixed(6)}`;
+    }
+
+    // Update live while dragging, zooming, or moving the map.
+    map.on("move zoom resize", updateCoordinates);
+    updateCoordinates();
+
+    // Interacting with the box should not drag/zoom the map.
+    L.DomEvent.disableClickPropagation(panel);
+    L.DomEvent.disableScrollPropagation(panel);
+
+    return panel;
+};
+
+coordinatesControl.addTo(map);
 
 // OpenStreetMap basemap and scale
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
