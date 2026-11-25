@@ -19,23 +19,35 @@ function popupElement(tag, className, text) {
 
 /**
  * Make the content for one Leaflet marker popup.
- * @param {Object} properties Properties from the marker's GeoJSON feature.
- * @param {"foodServices"|"studentSociety"} locationType
- * @returns {HTMLElement}
+ * Supports food services, Student Societies, colleges, and WUSA.
  */
 function createFoodPopup(properties, locationType) {
-    const isSociety = locationType === "studentSociety";
     const building = properties.BuildingName || "Unknown building";
     const code = properties.BuildingCode || "";
-
-    // Keep the original popup's identifying information for both categories.
-    const title = isSociety
-        ? (properties.CnDName || "Student Society Food Location")
-        : building;
     const buildingLabel = code ? `${building} (${code})` : building;
-    const subtitle = isSociety
-        ? [properties.StudentSocietyName || "Student Society", buildingLabel].join(" · ")
-        : [code, "UW Food Services"].filter(Boolean).join(" · ");
+
+    let title;
+    let subtitle;
+    let storeName = SAMPLE_STORE_NAME;
+
+    if (locationType === "studentSociety") {
+        title = properties.CnDName || "Student Society Food Location";
+        subtitle = [
+            properties.StudentSocietyName || properties.StudentSociety || "Student Society",
+            buildingLabel
+        ].join(" · ");
+    } else if (locationType === "college") {
+        title = properties.CollegeName || building;
+        subtitle = [code, "College Food Location"].filter(Boolean).join(" · ");
+        // Use the supplied name rather than the temporary Evergreen Cafe name.
+        storeName = properties.StoreName || SAMPLE_STORE_NAME;
+    } else if (locationType === "wusa") {
+        title = "WUSA";
+        subtitle = buildingLabel;
+    } else {
+        title = building;
+        subtitle = [code, "UW Food Services"].filter(Boolean).join(" · ");
+    }
 
     const popupId = ++popupSequence;
     const root = popupElement("div", "food-popup");
@@ -83,7 +95,7 @@ function createFoodPopup(properties, locationType) {
 
     // Price List content, currently identical for every marker.
     panels.prices.appendChild(
-        popupElement("h3", "food-popup-store", SAMPLE_STORE_NAME)
+        popupElement("h3", "food-popup-store", storeName)
     );
     panels.prices.appendChild(
         popupElement("h4", "food-popup-section-title", "Food prices")
