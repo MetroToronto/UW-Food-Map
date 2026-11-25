@@ -34,12 +34,12 @@ const locationsLayer = L.geoJSON(geojson, {
         label.textContent = buildingCode;
 
         // Create the Leaflet icon
-        const buildingIcon = L.divIcon({
+        const building = L.div({
             html: label,
             className: "uw-building-icon",
             iconSize: [50, 50],
-        iconAnchor: [25, 25],
-        popupAnchor: [0, -25]
+            iconAnchor: [25, 25],
+            popupAnchor: [0, -25]
         });
 
         return L.marker(latlng, {
