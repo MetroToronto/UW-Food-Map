@@ -1,17 +1,44 @@
-// University of Waterloo campus center
-const Campus_Centerpoint = [43.4723, -80.5439];
-
-// Starting zoom level
+// ------------------------------------------------------------
+// MAP STARTING POSITION, ZOOM, AND MOVEMENT RESTRICTIONS
+// ------------------------------------------------------------
+// Slightly north and east of the original campus map centre.
+const Campus_Centerpoint = [43.4729, -80.5439];
 const START_ZOOM = 16.5;
 
-// Initialize map
+// Limits how far users can pan when zoomed in.
+const CAMPUS_BOUNDS = L.latLngBounds(
+    [43.4570, -80.5659], // Southwest
+    [43.4890, -80.5219]  // Northeast
+);
+
 const map = L.map("map", {
     zoomSnap: 0.5,
     zoomDelta: 0.5,
-    minZoom: START_ZOOM
+    minZoom: START_ZOOM,
+    maxZoom: 19,
+    maxBounds: CAMPUS_BOUNDS,
+    maxBoundsViscosity: 1.0,
+    dragging: false,
+    keyboard: false
 }).setView(Campus_Centerpoint, START_ZOOM);
 
 map.zoomControl.setPosition("topright");
+
+// At maximum zoom-out, keep the original view in place.
+// At closer zooms, allow movement within CAMPUS_BOUNDS.
+function updateMapMovement() {
+    if (map.getZoom() <= START_ZOOM) {
+        map.dragging.disable();
+        map.keyboard.disable();
+        map.panTo(Campus_Centerpoint, { animate: false });
+    } else {
+        map.dragging.enable();
+        map.keyboard.enable();
+    }
+}
+
+map.on("zoomend", updateMapMovement);
+updateMapMovement();
 
 // OpenStreetMap basemap and scale
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
