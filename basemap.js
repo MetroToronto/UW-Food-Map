@@ -19,8 +19,36 @@ async function loadFoodServiceLocations() {
             throw new Error(`Unable to load GeoJSON (HTTP ${response.status})`);
         }
         const geojson = await response.json();
-        const locationsLayer = L.geoJSON(geojson, {
-            onEachFeature: (feature, layer) => {
+        
+const locationsLayer = L.geoJSON(geojson, {
+
+    // Create circular building code icons
+    pointToLayer: (feature, latlng) => {
+
+        const buildingCode =
+            feature.properties?.BuildingCode || "?";
+
+        // Create the text inside the circle
+        const label = document.createElement("div");
+        label.className = "uw-building-circle";
+        label.textContent = buildingCode;
+
+        // Create the Leaflet icon
+        const buildingIcon = L.divIcon({
+            html: label,
+            className: "uw-building-icon",
+            iconSize: [65, 65],
+            iconAnchor: [32.5, 32.5],
+            popupAnchor: [0, -33]
+        });
+
+        return L.marker(latlng, {
+            icon: buildingIcon
+        });
+    },
+
+    onEachFeature: (feature, layer) => {
+
                 const popup = createFoodPopup(feature.properties || {}, "foodServices");
                 layer.bindPopup(popup, {
                     className: "food-location-popup",
