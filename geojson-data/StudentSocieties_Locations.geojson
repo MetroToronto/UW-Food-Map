@@ -36,6 +36,23 @@
         }
     },
     {
+        "type": "Feature",
+        "geometry": {
+            "type": "Point",
+            "coordinates": [
+                -80.540914,
+                43.469723
+            ]
+        },
+        "properties": {
+            "StudentSocietyCode": "GSA",
+            "CnDName": "Grad House",
+            "StudentSocietyName": "Graduate Student Association",
+            "BuildingCode": "GH",
+            "BuildingName": "Graduate House"
+        }
+    },
+    {
       "type": "Feature",
       "geometry": {
         "type": "Point",
