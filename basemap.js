@@ -50,21 +50,18 @@ L.control.scale().addTo(map);
 // ------------------------------------------------------------
 // AUTOMATIC MARKER SPACING
 // ------------------------------------------------------------
-// Both marker types are 50 x 50 screen pixels.
-// Keep at least 8 additional pixels between their bounding boxes.
-// Markers move only when they overlap; at higher zoom levels, they
-// automatically return to their exact GeoJSON locations.
-const MARKER_SIZE_PX = 50;
+// UW Food Services, colleges, and Student Society icons are 50px.
+// WUSA has a larger, 75px icon. Maintain an 8px gap for all icons.
+const STANDARD_ICON_SIZE = 50;
+const WUSA_ICON_SIZE = 75;
 const MARKER_GAP_PX = 8;
-const MIN_SEPARATION_PX = MARKER_SIZE_PX + MARKER_GAP_PX;
 
-// Save the true geographic position separately from each displayed marker.
+// Keep original GeoJSON positions unchanged.
 const foodMapMarkers = [];
 
-function registerFoodMapMarker(marker) {
+function registerFoodMapMarker(marker, iconSize = STANDARD_ICON_SIZE) {
     const originalLatLng = marker.getLatLng();
 
-    // A subtle line shows the marker's real position when it is shifted.
     const leaderLine = L.polyline([], {
         color: "#555555",
         weight: 1.5,
@@ -82,65 +79,75 @@ function registerFoodMapMarker(marker) {
         interactive: false
     });
 
-    foodMapMarkers.push({ marker, originalLatLng, leaderLine, originalDot });
+    foodMapMarkers.push({
+        marker,
+        iconSize,
+        originalLatLng,
+        leaderLine,
+        originalDot
+    });
 }
 
-// Use square bounding boxes, so circles and PNG logos both have a buffer.
-function markersWouldOverlap(a, b) {
+// Compare the sizes of both markers to preserve the same pixel gap.
+function markersWouldOverlap(candidate, candidateSize, used) {
+    const requiredSeparation =
+        (candidateSize + used.iconSize) / 2 + MARKER_GAP_PX;
+
     return (
-        Math.abs(a.x - b.x) < MIN_SEPARATION_PX &&
-        Math.abs(a.y - b.y) < MIN_SEPARATION_PX
+        Math.abs(candidate.x - used.point.x) < requiredSeparation &&
+        Math.abs(candidate.y - used.point.y) < requiredSeparation
     );
 }
 
-// Find the closest available on-screen spot in expanding circles.
-function findAvailableMarkerPosition(origin, usedPositions, markerIndex) {
-    if (!usedPositions.some(p => markersWouldOverlap(origin, p))) {
-        return origin; // No overlap: use the exact geographic position.
-    }
+function findAvailableMarkerPosition(origin, iconSize, usedPositions, markerIndex) {
+    const isOccupied = (point) => usedPositions.some(
+        used => markersWouldOverlap(point, iconSize, used)
+    );
 
-    // Different starting directions keep crowded icons from all moving right.
+    // Stay at the exact location whenever possible.
+    if (!isOccupied(origin)) return origin;
+
     const startingAngle = markerIndex * 2.399963229728653;
 
+    // Search outward until there is room for the entire marker.
     for (let radius = 8; radius <= 800; radius += 8) {
         const positionsToTry = Math.max(16, Math.ceil(2 * Math.PI * radius / 12));
 
         for (let i = 0; i < positionsToTry; i++) {
-            const angle = startingAngle + (2 * Math.PI * i / positionsToTry);
+            const angle = startingAngle + 2 * Math.PI * i / positionsToTry;
             const candidate = L.point(
                 origin.x + Math.cos(angle) * radius,
                 origin.y + Math.sin(angle) * radius
             );
 
-            if (!usedPositions.some(p => markersWouldOverlap(candidate, p))) {
-                return candidate;
-            }
+            if (!isOccupied(candidate)) return candidate;
         }
     }
 
-    // Unlikely except with very large numbers of markers in one place.
+    // Fallback in exceptionally dense areas.
     return origin;
 }
 
 function updateMarkerSpacing() {
-    // Use a stable ordering, regardless of which GeoJSON file loads first.
+    // Deterministic order even if the GeoJSON datasets load separately.
     const entries = [...foodMapMarkers].sort((a, b) =>
         a.originalLatLng.lat - b.originalLatLng.lat ||
-        a.originalLatLng.lng - b.originalLatLng.lng
+        a.originalLatLng.lng - b.originalLatLng.lng ||
+        a.iconSize - b.iconSize
     );
 
     const usedPositions = [];
 
     entries.forEach((entry, index) => {
-        // Work in screen pixels at the CURRENT map zoom.
         const exactPoint = map.latLngToLayerPoint(entry.originalLatLng);
         const displayedPoint = findAvailableMarkerPosition(
             exactPoint,
+            entry.iconSize,
             usedPositions,
             index
         );
 
-        usedPositions.push(displayedPoint);
+        usedPositions.push({ point: displayedPoint, iconSize: entry.iconSize });
 
         const shiftedDistance = Math.hypot(
             displayedPoint.x - exactPoint.x,
@@ -148,12 +155,10 @@ function updateMarkerSpacing() {
         );
 
         if (shiftedDistance < 1) {
-            // Plenty of space: return to the true location.
             entry.marker.setLatLng(entry.originalLatLng);
             if (map.hasLayer(entry.leaderLine)) map.removeLayer(entry.leaderLine);
             if (map.hasLayer(entry.originalDot)) map.removeLayer(entry.originalDot);
         } else {
-            // Crowded area: display slightly aside, without changing GeoJSON.
             const shiftedLatLng = map.layerPointToLatLng(displayedPoint);
             entry.marker.setLatLng(shiftedLatLng);
             entry.leaderLine.setLatLngs([entry.originalLatLng, shiftedLatLng]);
@@ -164,8 +169,37 @@ function updateMarkerSpacing() {
     });
 }
 
-// Recalculate after zooming, panning, or resizing the browser.
 map.on("zoomend moveend resize", updateMarkerSpacing);
+
+// Shared icon for UW Food Services and college building-code markers.
+function createBuildingCodeMarker(feature, latlng) {
+    const buildingCode = feature.properties?.BuildingCode || "?";
+
+    const label = document.createElement("div");
+    label.className = "uw-building-circle";
+    label.textContent = buildingCode;
+
+    const buildingIcon = L.divIcon({
+        html: label,
+        className: "uw-building-icon",
+        iconSize: [STANDARD_ICON_SIZE, STANDARD_ICON_SIZE],
+        iconAnchor: [STANDARD_ICON_SIZE / 2, STANDARD_ICON_SIZE / 2],
+        popupAnchor: [0, -STANDARD_ICON_SIZE / 2]
+    });
+
+    return L.marker(latlng, { icon: buildingIcon });
+}
+
+// Keep the same clickable, three-tab popup on every marker.
+function attachFoodPopup(feature, layer, locationType, iconSize = STANDARD_ICON_SIZE) {
+    const popup = createFoodPopup(feature.properties || {}, locationType);
+    layer.bindPopup(popup, {
+        className: "food-location-popup",
+        minWidth: 260,
+        maxWidth: 380
+    });
+    registerFoodMapMarker(layer, iconSize);
+}
 
 // ------------------------------------------------------------
 // UW FOOD SERVICES LOCATIONS
@@ -173,46 +207,20 @@ map.on("zoomend moveend resize", updateMarkerSpacing);
 async function loadFoodServiceLocations() {
     try {
         const response = await fetch("geojson-data/FoodServices_Locations.geojson");
-        if (!response.ok) {
-            throw new Error(`Unable to load GeoJSON (HTTP ${response.status})`);
-        }
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const geojson = await response.json();
 
-        const locationsLayer = L.geoJSON(geojson, {
-            // White 50px circle with the building code inside
-            pointToLayer: (feature, latlng) => {
-                const buildingCode = feature.properties?.BuildingCode || "?";
-
-                const label = document.createElement("div");
-                label.className = "uw-building-circle";
-                label.textContent = buildingCode;
-
-                const buildingIcon = L.divIcon({
-                    html: label,
-                    className: "uw-building-icon",
-                    iconSize: [50, 50],
-                    iconAnchor: [25, 25],
-                    popupAnchor: [0, -25]
-                });
-
-                return L.marker(latlng, { icon: buildingIcon });
-            },
-
-            onEachFeature: (feature, layer) => {
-                const popup = createFoodPopup(feature.properties || {}, "foodServices");
-                layer.bindPopup(popup, {
-                    className: "food-location-popup",
-                    minWidth: 260,
-                    maxWidth: 380
-                });
-                registerFoodMapMarker(layer);
+        const layer = L.geoJSON(geojson, {
+            pointToLayer: createBuildingCodeMarker,
+            onEachFeature: (feature, marker) => {
+                attachFoodPopup(feature, marker, "foodServices");
             }
         }).addTo(map);
 
         updateMarkerSpacing();
-        console.log(`Loaded ${locationsLayer.getLayers().length} UW Food Services location(s).`);
+        console.log(`Loaded ${layer.getLayers().length} UW Food Services location(s).`);
     } catch (error) {
-        console.error("Failed to load food-service locations:", error);
+        console.error("Failed to load UW Food Services locations:", error);
     }
 }
 
@@ -222,51 +230,101 @@ async function loadFoodServiceLocations() {
 async function loadStudentSocietyLocations() {
     try {
         const response = await fetch("geojson-data/StudentSocieties_Locations.geojson");
-        if (!response.ok) {
-            throw new Error(`Unable to load Student Societies GeoJSON (HTTP ${response.status})`);
-        }
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const geojson = await response.json();
 
         const availableIcons = [
-            "AHSUM", "ASU", "ESS", "EngSoc", "GSA", "MathSoc", "SciSoc", "WUSA"
+            "AHSUM", "ASU", "ESS", "EngSoc", "GSA", "MathSoc", "SciSoc"
         ];
 
-        const studentSocietyLayer = L.geoJSON(geojson, {
+        const layer = L.geoJSON(geojson, {
+            // WUSA is now loaded from its own WUSA_Location.geojson file.
+            // Prevent a duplicate if it also exists in the society data.
+            filter: feature => feature.properties?.StudentSocietyCode !== "WUSA",
+
             pointToLayer: (feature, latlng) => {
                 const code = feature.properties?.StudentSocietyCode;
-
-                if (!availableIcons.includes(code)) {
-                    return L.marker(latlng);
-                }
+                if (!availableIcons.includes(code)) return L.marker(latlng);
 
                 const societyIcon = L.icon({
                     iconUrl: `icons/${code}.png`,
-                    iconSize: [50, 50],
-                    iconAnchor: [25, 25],
-                    popupAnchor: [0, -25]
+                    iconSize: [STANDARD_ICON_SIZE, STANDARD_ICON_SIZE],
+                    iconAnchor: [STANDARD_ICON_SIZE / 2, STANDARD_ICON_SIZE / 2],
+                    popupAnchor: [0, -STANDARD_ICON_SIZE / 2]
                 });
 
                 return L.marker(latlng, { icon: societyIcon });
             },
 
-            onEachFeature: (feature, layer) => {
-                const popup = createFoodPopup(feature.properties || {}, "studentSociety");
-                layer.bindPopup(popup, {
-                    className: "food-location-popup",
-                    minWidth: 260,
-                    maxWidth: 380
-                });
-                registerFoodMapMarker(layer);
+            onEachFeature: (feature, marker) => {
+                attachFoodPopup(feature, marker, "studentSociety");
             }
         }).addTo(map);
 
         updateMarkerSpacing();
-        console.log(`Loaded ${studentSocietyLayer.getLayers().length} student society location(s).`);
+        console.log(`Loaded ${layer.getLayers().length} Student Society location(s).`);
     } catch (error) {
         console.error("Failed to load Student Society locations:", error);
     }
 }
 
-// Load both datasets
+// ------------------------------------------------------------
+// COLLEGE FOOD LOCATIONS
+// ------------------------------------------------------------
+async function loadCollegeLocations() {
+    try {
+        const response = await fetch("geojson-data/Colleges_Locations.geojson");
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const geojson = await response.json();
+
+        const layer = L.geoJSON(geojson, {
+            // Identical white circle / black border / building code styling.
+            pointToLayer: createBuildingCodeMarker,
+            onEachFeature: (feature, marker) => {
+                attachFoodPopup(feature, marker, "college");
+            }
+        }).addTo(map);
+
+        updateMarkerSpacing();
+        console.log(`Loaded ${layer.getLayers().length} college location(s).`);
+    } catch (error) {
+        console.error("Failed to load college locations:", error);
+    }
+}
+
+// ------------------------------------------------------------
+// WUSA LOCATION — 75 x 75 PIXEL IMAGE
+// ------------------------------------------------------------
+async function loadWusaLocation() {
+    try {
+        // Singular "Location" is intentional.
+        const response = await fetch("geojson-data/WUSA_Location.geojson");
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const geojson = await response.json();
+
+        const wusaIcon = L.icon({
+            iconUrl: "icons/WUSA.png",
+            iconSize: [WUSA_ICON_SIZE, WUSA_ICON_SIZE],
+            iconAnchor: [WUSA_ICON_SIZE / 2, WUSA_ICON_SIZE / 2],
+            popupAnchor: [0, -WUSA_ICON_SIZE / 2]
+        });
+
+        const layer = L.geoJSON(geojson, {
+            pointToLayer: (feature, latlng) => L.marker(latlng, { icon: wusaIcon }),
+            onEachFeature: (feature, marker) => {
+                attachFoodPopup(feature, marker, "wusa", WUSA_ICON_SIZE);
+            }
+        }).addTo(map);
+
+        updateMarkerSpacing();
+        console.log(`Loaded ${layer.getLayers().length} WUSA location(s).`);
+    } catch (error) {
+        console.error("Failed to load WUSA location:", error);
+    }
+}
+
+// Load all four datasets.
 loadFoodServiceLocations();
 loadStudentSocietyLocations();
+loadCollegeLocations();
+loadWusaLocation();
