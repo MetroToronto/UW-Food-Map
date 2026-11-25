@@ -1,0 +1,39 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -80.546427,
+                    43.468003
+                ]
+            },
+            "properties": {
+                "CollegeCode": "UTD",
+                "CollegeName": "United College",
+                "StoreName": "Toasty's Bakery",
+                "BuildingCode": "UTD",
+                "BuildingName": "United College"
+            }
+        },
+        {
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": [
+                    -80.545813,
+                    43.468937
+                ]
+            },
+            "properties": {
+                "CollegeCode": "SJ1",
+                "CollegeName": "St. Jerome's University",
+                "StoreName": "The Funcken Café",
+                "BuildingCode": "SJ1",
+                "BuildingName": "St. Jerome's University"
+            }
+        }
+    ]
+}
