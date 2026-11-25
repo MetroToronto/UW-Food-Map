@@ -34,7 +34,7 @@ function createFoodPopup(properties, locationType) {
         : building;
     const buildingLabel = code ? `${building} (${code})` : building;
     const subtitle = isSociety
-        ? [properties.StudentSociety || "Student Society", buildingLabel].join(" · ")
+        ? [properties.StudentSocietyName || "Student Society", buildingLabel].join(" · ")
         : [code, "UW Food Services"].filter(Boolean).join(" · ");
 
     const popupId = ++popupSequence;
