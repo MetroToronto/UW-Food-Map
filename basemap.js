@@ -2,7 +2,7 @@
 // MAP STARTING POSITION, ZOOM, AND MOVEMENT RESTRICTIONS
 // ------------------------------------------------------------
 // Slightly north and east of the original campus map centre.
-const Campus_Centerpoint = [43.4759, -80.5339];
+const Campus_Centerpoint = [43.4859, -80.5239];
 const START_ZOOM = 16.5;
 
 // Limits how far users can pan when zoomed in.
