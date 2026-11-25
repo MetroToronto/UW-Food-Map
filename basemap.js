@@ -193,7 +193,7 @@ async function loadStudentSocietyLocations() {
         const geojson = await response.json();
 
         const availableIcons = [
-            "AHSUM", "ASU", "ESS", "EngSoc", "MathSoc", "SciSoc", "WUSA"
+            "AHSUM", "ASU", "ESS", "EngSoc", "GSA", "MathSoc", "SciSoc", "WUSA"
         ];
 
         const studentSocietyLayer = L.geoJSON(geojson, {
