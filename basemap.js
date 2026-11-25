@@ -3,6 +3,7 @@ const Campus_Centerpoint = [43.4723, -80.5449];
 
 // Initialize the Leaflet map
 const map = L.map("map").setView(Campus_Centerpoint, 16);
+map.zoomControl.setPosition("topright");
 
 // Add OpenStreetMap basemap and scale
 L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
