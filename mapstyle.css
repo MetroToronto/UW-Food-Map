@@ -33,3 +33,24 @@ header p {
     flex: 1;
     min-height: 0;
 }
+
+.uw-building-circle {
+    width: 65px;
+    height: 65px;
+
+    background-color: white;
+    border: 3.5px solid black;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: black;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+
+    white-space: nowrap;
+    box-sizing: border-box;
+}
