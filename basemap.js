@@ -37,9 +37,9 @@ const locationsLayer = L.geoJSON(geojson, {
         const buildingIcon = L.divIcon({
             html: label,
             className: "uw-building-icon",
-            iconSize: [65, 65],
-            iconAnchor: [32.5, 32.5],
-            popupAnchor: [0, -33]
+            iconSize: [50, 50],
+        iconAnchor: [25, 25],
+        popupAnchor: [0, -25]
         });
 
         return L.marker(latlng, {
@@ -89,9 +89,9 @@ async function loadStudentSocietyLocations() {
 
         const societyIcon = L.icon({
             iconUrl: `icons/${code}.png`,
-            iconSize: [40, 40],
-            iconAnchor: [20, 20],
-            popupAnchor: [0, -20]
+            iconSize: [50, 50],
+        iconAnchor: [25, 25],
+        popupAnchor: [0, -25]
         });
 
         return L.marker(latlng, {
