@@ -1,52 +1,137 @@
-
 /* General page styling */
 * {
     box-sizing: border-box;
 }
 
+html,
 body {
+    width: 100%;
+    height: 100%;
     margin: 0;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
     font-family: Arial, sans-serif;
 }
 
-/* Header */
-header {
-    background-color: #f5c518;
-    padding: 15px 20px;
-    text-align: center;
+/* Make the map fill the entire browser window */
+.map-layout {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
 }
 
-header h1 {
-    margin: 0;
-}
-
-header p {
-    margin: 5px 0 0;
-}
-
-/* Leaflet map */
 #map {
     width: 100%;
-    flex: 1;
-    min-height: 0;
+    height: 100%;
+}
+
+/* Floating logo and title panels in the upper-left */
+.map-branding {
+    position: absolute;
+    z-index: 1000;
+    top: 18px;
+    left: 18px;
+    width: 285px;
+    max-width: calc(100vw - 90px);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.map-logo-box,
+.map-title-box {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Logo is loaded from your icons folder */
+.map-logo-box {
+    padding: 12px 15px;
+    max-width: 100%;
+}
+
+.wusa-logo {
+    display: block;
+    width: 175px;
+    max-width: 100%;
+    height: auto;
+    max-height: 65px;
+    object-fit: contain;
+}
+
+/* Title and subtitle underneath the logo */
+.map-title-box {
+    width: 100%;
+    padding: 16px 18px;
+}
+
+.map-title-box h1 {
+    margin: 0;
+    color: #171717;
+    font-size: 23px;
+    line-height: 1.2;
+}
+
+.map-title-box p {
+    margin: 6px 0 0;
+    color: #555;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+/* UW Food Services building code markers: 50px circles */
+.uw-building-icon {
+    background: transparent;
+    border: none;
 }
 
 .uw-building-circle {
     width: 50px;
     height: 50px;
-    background-color: white;
-    border: 3.5px solid black;
+    background-color: #fff;
+    border: 3.5px solid #000;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: black;
+    color: #000;
     font-family: Arial, sans-serif;
     font-size: 16px;
     font-weight: bold;
     white-space: nowrap;
-    box-sizing: border-box;
+}
+
+/* Smaller boxes on phones */
+@media (max-width: 480px) {
+    .map-branding {
+        top: 12px;
+        left: 12px;
+        width: 245px;
+        max-width: calc(100vw - 85px);
+        gap: 8px;
+    }
+
+    .map-logo-box {
+        padding: 9px 12px;
+    }
+
+    .wusa-logo {
+        width: 145px;
+        max-height: 55px;
+    }
+
+    .map-title-box {
+        padding: 13px 14px;
+    }
+
+    .map-title-box h1 {
+        font-size: 20px;
+    }
+
+    .map-title-box p {
+        font-size: 12px;
+    }
 }
