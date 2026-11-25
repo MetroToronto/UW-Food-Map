@@ -1,8 +1,16 @@
 // University of Waterloo campus center
-const Campus_Centerpoint = [43.4723, -80.5449];
+const Campus_Centerpoint = [43.4723, -80.5439];
 
-// Initialize the Leaflet map
-const map = L.map("map").setView(Campus_Centerpoint, 16);
+// Starting zoom level
+const START_ZOOM = 16.5;
+
+// Initialize map
+const map = L.map("map", {
+    zoomSnap: 0.5,
+    zoomDelta: 0.5,
+    minZoom: START_ZOOM
+}).setView(Campus_Centerpoint, START_ZOOM);
+
 map.zoomControl.setPosition("topright");
 
 // OpenStreetMap basemap and scale
