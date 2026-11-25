@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,25 +10,37 @@
     <link rel="stylesheet"
           href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 
-    <!-- Our CSS -->
+    <!-- Website and popup styling -->
     <link rel="stylesheet" href="mapstyle.css">
     <link rel="stylesheet" href="popupstyle.css">
 </head>
-
 <body>
-    <header>
-        <h1>UW Food Map</h1>
-        <p>Explore food options at the University of Waterloo</p>
-    </header>
+    <main class="map-layout">
+        <!-- Full-screen map -->
+        <div id="map" aria-label="University of Waterloo food locations map"></div>
 
-    <!-- Map container -->
-    <div id="map"></div>
+        <!-- Branding overlay in the top-left of the map -->
+        <div class="map-branding">
+            <div class="map-logo-box">
+                <img
+                    src="icons/WUSA_Primary_Logo.png"
+                    alt="WUSA logo"
+                    class="wusa-logo"
+                >
+            </div>
+
+            <div class="map-title-box">
+                <h1>UW Food Map</h1>
+                <p>Explore food options at the University of Waterloo</p>
+            </div>
+        </div>
+    </main>
 
     <!-- Leaflet JavaScript -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-    <!-- Our JavaScript -->
-    <script src="basemap.js"></script>
+    <!-- Popup functions must load before basemap.js -->
     <script src="popup.js"></script>
+    <script src="basemap.js"></script>
 </body>
 </html>
