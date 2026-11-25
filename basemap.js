@@ -5,7 +5,7 @@
 // When you choose your ideal centre coordinates, you can
 // restore the movement restrictions in a later version.
 const Campus_Centerpoint = [43.4729, -80.5439];
-const START_ZOOM = 16;
+const START_ZOOM = 16.25;
 
 const map = L.map("map", {
     zoomSnap: 0.5,
