@@ -44,7 +44,34 @@ async function loadStudentSocietyLocations() {
         }
         const geojson = await response.json();
         const studentSocietyLayer = L.geoJSON(geojson, {
-            onEachFeature: (feature, layer) => {
+
+    // Display the corresponding Student Society icon
+    pointToLayer: (feature, latlng) => {
+        const code = feature.properties?.StudentSocietyCode;
+
+        const availableIcons = [
+            "AHSUM", "ASU", "ESS", "EngSoc",
+            "MathSoc", "SciSoc", "WUSA"
+        ];
+
+        // Use the default marker if no matching icon exists
+        if (!availableIcons.includes(code)) {
+            return L.marker(latlng);
+        }
+
+        const societyIcon = L.icon({
+            iconUrl: `icons/${code}.png`,
+            iconSize: [40, 40],
+            iconAnchor: [20, 20],
+            popupAnchor: [0, -20]
+        });
+
+        return L.marker(latlng, {
+            icon: societyIcon
+        });
+    },
+
+    onEachFeature: (feature, layer) => {
                 const popup = createFoodPopup(feature.properties || {}, "studentSociety");
                 layer.bindPopup(popup, {
                     className: "food-location-popup",
