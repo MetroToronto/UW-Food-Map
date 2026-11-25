@@ -118,28 +118,13 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          -80.53432,
-          43.47001
+          -80.535814,
+          43.470323
         ]
       },
       "properties": {
-        "BuildingCode": "UWP",
-        "BuildingName": "University of Waterloo Place"
-      }
-   
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          -80.54363089,
-          43.46962635
-        ]
-      },
-      "properties": {
-        "BuildingCode": "NH",
-        "BuildingName": "Ira G. Needles Hall"
+        "BuildingCode": "CMH",
+        "BuildingName": "Claudette Millar Hall"
       }
     },
     {
