@@ -20,36 +20,30 @@ async function loadFoodServiceLocations() {
             throw new Error(`Unable to load GeoJSON (HTTP ${response.status})`);
         }
         const geojson = await response.json();
-        
-const locationsLayer = L.geoJSON(geojson, {
 
-    // Create circular building code icons
-    pointToLayer: (feature, latlng) => {
+        const locationsLayer = L.geoJSON(geojson, {
+            // Create white circular markers labeled with building codes
+            pointToLayer: (feature, latlng) => {
+                const buildingCode = feature.properties?.BuildingCode || "?";
 
-        const buildingCode =
-            feature.properties?.BuildingCode || "?";
+                const label = document.createElement("div");
+                label.className = "uw-building-circle";
+                label.textContent = buildingCode;
 
-        // Create the text inside the circle
-        const label = document.createElement("div");
-        label.className = "uw-building-circle";
-        label.textContent = buildingCode;
+                const buildingIcon = L.divIcon({
+                    html: label,
+                    className: "uw-building-icon",
+                    iconSize: [50, 50],
+                    iconAnchor: [25, 25],
+                    popupAnchor: [0, -25]
+                });
 
-        // Create the Leaflet icon
-        const building = L.div({
-            html: label,
-            className: "uw-building-icon",
-            iconSize: [50, 50],
-            iconAnchor: [25, 25],
-            popupAnchor: [0, -25]
-        });
+                return L.marker(latlng, {
+                    icon: buildingIcon
+                });
+            },
 
-        return L.marker(latlng, {
-            icon: buildingIcon
-        });
-    },
-
-    onEachFeature: (feature, layer) => {
-
+            onEachFeature: (feature, layer) => {
                 const popup = createFoodPopup(feature.properties || {}, "foodServices");
                 layer.bindPopup(popup, {
                     className: "food-location-popup",
@@ -58,13 +52,14 @@ const locationsLayer = L.geoJSON(geojson, {
                 });
             }
         }).addTo(map);
+
         console.log(`Loaded ${locationsLayer.getLayers().length} UW Food Services location(s).`);
     } catch (error) {
         console.error("Failed to load food-service locations:", error);
     }
 }
 
-// Load student society C&D locations
+// Load Student Society C&D locations
 async function loadStudentSocietyLocations() {
     try {
         const response = await fetch("geojson-data/StudentSocieties_Locations.geojson");
@@ -72,35 +67,32 @@ async function loadStudentSocietyLocations() {
             throw new Error(`Unable to load Student Societies GeoJSON (HTTP ${response.status})`);
         }
         const geojson = await response.json();
+
         const studentSocietyLayer = L.geoJSON(geojson, {
+            pointToLayer: (feature, latlng) => {
+                const code = feature.properties?.StudentSocietyCode;
+                const availableIcons = [
+                    "AHSUM", "ASU", "ESS", "EngSoc",
+                    "MathSoc", "SciSoc", "WUSA"
+                ];
 
-    // Display the corresponding Student Society icon
-    pointToLayer: (feature, latlng) => {
-        const code = feature.properties?.StudentSocietyCode;
+                if (!availableIcons.includes(code)) {
+                    return L.marker(latlng);
+                }
 
-        const availableIcons = [
-            "AHSUM", "ASU", "ESS", "EngSoc",
-            "MathSoc", "SciSoc", "WUSA"
-        ];
+                const societyIcon = L.icon({
+                    iconUrl: `icons/${code}.png`,
+                    iconSize: [50, 50],
+                    iconAnchor: [25, 25],
+                    popupAnchor: [0, -25]
+                });
 
-        // Use the default marker if no matching icon exists
-        if (!availableIcons.includes(code)) {
-            return L.marker(latlng);
-        }
+                return L.marker(latlng, {
+                    icon: societyIcon
+                });
+            },
 
-        const societyIcon = L.icon({
-            iconUrl: `icons/${code}.png`,
-            iconSize: [50, 50],
-        iconAnchor: [25, 25],
-        popupAnchor: [0, -25]
-        });
-
-        return L.marker(latlng, {
-            icon: societyIcon
-        });
-    },
-
-    onEachFeature: (feature, layer) => {
+            onEachFeature: (feature, layer) => {
                 const popup = createFoodPopup(feature.properties || {}, "studentSociety");
                 layer.bindPopup(popup, {
                     className: "food-location-popup",
@@ -109,12 +101,12 @@ async function loadStudentSocietyLocations() {
                 });
             }
         }).addTo(map);
+
         console.log(`Loaded ${studentSocietyLayer.getLayers().length} student society location(s).`);
     } catch (error) {
         console.error("Failed to load Student Society locations:", error);
     }
 }
 
-// Show both location types when the webpage loads
 loadFoodServiceLocations();
 loadStudentSocietyLocations();
