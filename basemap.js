@@ -14,7 +14,7 @@ L.control.scale().addTo(map);
 // Load UW Food Services buildings
 async function loadFoodServiceLocations() {
     try {
-        const response = await fetch("data/FoodServices_Locations.geojson");
+        const response = await fetch("geojson-data/FoodServices_Locations.geojson");
         if (!response.ok) {
             throw new Error(`Unable to load GeoJSON (HTTP ${response.status})`);
         }
@@ -38,7 +38,7 @@ async function loadFoodServiceLocations() {
 // Load student society C&D locations
 async function loadStudentSocietyLocations() {
     try {
-        const response = await fetch("data/StudentSocieties_Locations.geojson");
+        const response = await fetch("geojson-data/StudentSocieties_Locations.geojson");
         if (!response.ok) {
             throw new Error(`Unable to load Student Societies GeoJSON (HTTP ${response.status})`);
         }
